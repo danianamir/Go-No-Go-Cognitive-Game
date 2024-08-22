@@ -33,4 +33,4 @@ The game is highly customizable to fit different experimental needs and preferen
 ## how to use
 You can download the game from the `gonogo` folder. Use the `input` file to set the game parameters, then provide the address of the saved file to start the game. After completion, output information will be saved in the `output` folder.
 
-![Description of the image](pic)
+![Description of the image](pic.png)
