@@ -1,0 +1,763 @@
+<html>
+
+<head>
+
+
+
+  <title>Block Generator</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .block {
+      border: 1px solid #ddd;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+
+    .block h3 {
+      margin-top: 0;
+    }
+
+    .block label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .block input,
+    .block select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .settings-fieldset {
+    margin-bottom: 50px; /* Add space below each fieldset */
+}
+
+
+
+
+
+
+
+
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper label {
+    margin-right: 5px;
+}
+
+.input-wrapper input {
+    width: 100px; /* Adjust the width as needed */
+    margin-right: 10px;
+}
+
+  </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script>
+
+
+
+
+
+
+
+
+
+
+    function addBlocks() {
+      // Get number of blocks
+      var numBlocks = document.getElementById("numBlocks").value;
+
+      // Generate blocks
+      var container = document.getElementById("blocks");
+      container.innerHTML = "";
+      for (var i = 0; i < numBlocks; i++) {
+        container.innerHTML +=
+          `<div class="block">
+            <h3>Block ${i + 1}</h3>
+            
+
+
+            
+            <button onclick="copyValues(${i})">Copy Values from privious block </button>
+            <button onclick="setDefaultValues(${i})">Set Defaults</button>
+
+            <fieldset class="settings-fieldset">
+                <legend>Block parameters</legend>
+
+                  <label>go:</label>
+                  <input type="number" name="go">
+                  
+                  <label>nogo:</label> 
+                  <input type="number" name="nogo">
+                  
+                  <div class="input-group">
+                    <label>fixation_time:</label>
+                    <div class="input-wrapper">
+                      <label for="fixation_time_x">min:</label>
+                      <input type="number" name="fixation_time_x" id="fixation_time_x" class="short-input">
+                      <label for="fixation_time_y">max:</label>
+                      <input type="number" name="fixation_time_y" id="fixation_time_y" class="short-input">
+                    </div>
+                  </div>
+                  
+                  
+            </fieldset>
+
+
+
+
+
+
+
+
+
+
+
+           <fieldset class="settings-fieldset">
+                <legend>Trial parameters</legend>
+
+
+
+
+
+                                    <label>show_time_duration_go:</label>
+                    <div class="input-wrapper">
+                        <label for="show_time_duration_go_x">min:</label>
+                        <input type="number" name="show_time_duration_go_x" id="show_time_duration_go_x" class="short-input">
+                        <label for="show_time_duration_go_y">max:</label>
+                        <input type="number" name="show_time_duration_go_y" id="show_time_duration_go_y" class="short-input">
+                    </div>
+
+                    <label>show_time_duration_no_go:</label>
+                    <div class="input-wrapper">
+                        <label for="show_time_duration_no_go_x">min:</label>
+                        <input type="number" name="show_time_duration_no_go_x" id="show_time_duration_no_go_x" class="short-input">
+                        <label for="show_time_duration_no_go_y">max:</label>
+                        <input type="number" name="show_time_duration_no_go_y" id="show_time_duration_no_go_y" class="short-input">
+                    </div>
+
+                    <label>stop_signal_delay:</label>
+                    <div class="input-wrapper">
+                        <label for="stop_signal_delay_x">min:</label>
+                        <input type="number" name="stop_signal_delay_x" id="stop_signal_delay_x" class="short-input">
+                        <label for="stop_signal_delay_y">max:</label>
+                        <input type="number" name="stop_signal_delay_y" id="stop_signal_delay_y" class="short-input">
+                    </div>
+
+                    <label>beep_duration:</label>
+                    <div class="input-wrapper">
+                        <label for="beep_duration_x">min:</label>
+                        <input type="number" name="beep_duration_x" id="beep_duration_x" class="short-input">
+                        <label for="beep_duration_y">max:</label>
+                        <input type="number" name="beep_duration_y" id="beep_duration_y" class="short-input">
+                    </div>
+
+
+
+
+           </fieldset>
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+            <fieldset class="settings-fieldset">
+                <legend>Shape parameters</legend>
+                    <label>default_Airplane_Direction:</label>
+                    <select name="default_Airplane_Direction">
+                      <option value=0>alldirection</option>
+                      <option value=1>not_left</option>
+                      <option value=2>not_right</option>
+                      <option value=3>not_up</option>
+                      <option value=4>not_down</option>
+                      <option value=5>left_right</option>
+                      <option value=6>up_down</option>
+                      <option value=7>left_up</option>
+                      <option value=8>left_down</option>
+                      <option value=9>right_down</option>
+                      <option value=10>right_up</option>
+                    </select>
+
+
+                    <label>distractor_Direction_Is_In_Aiplane_Direction:</label>
+                    <select name="distractor_Direction_Is_In_Aiplane_Direction">
+                    <option value=0>yes</option>
+                    <option value=1>no</option>
+                    </select>
+
+
+                    <label>airplane_location_Constant:</label>
+                <select name="airplane_location_Constant" onchange="updateDefaultAirplaneLocation(this, ${i})">
+                    <option value="0">constant</option>
+                    <option value="1">variable</option>
+                </select>
+
+                <label>defualt_Airplane_Location:</label>
+                <select name="defualt_Airplane_Location" id="defualt_Airplane_Location_${i}">
+                    <option value="0">center</option>
+                    <option value="1">up</option>
+                    <option value="2">down</option>
+                    <option value="3">left</option>
+                    <option value="4">right</option>
+                </select>
+
+
+                    <label>airplane_shape_Constant:</label>
+                <select name="airplane_shape_Constant" onchange="updateDefaultAirplaneShape(this, ${i})">
+                    <option value="0">constant</option>
+                    <option value="1">variable</option>
+                </select>
+
+                <label>default_Airplane_Shape:</label>
+                <select name="default_Airplane_Shape" id="default_Airplane_Shape_${i}">
+                    <option value="0">type_1</option>
+                    <option value="1">type_2</option>
+                    <option value="2">type_3</option>
+                </select>
+                  
+                    <label>distractor_Shape_Constant:</label>
+                <select name="distractor_Shape_Constant" onchange="updateDefaultDistractorShape(this, ${i})">
+                    <option value="0">constant</option>
+                    <option value="1">variable</option>
+                </select>
+
+                <label>default_Distractor_Shape:</label>
+                <select name="default_Distractor_Shape" id="default_Distractor_Shape_${i}">
+                    <option value="0">type_1</option>
+                    <option value="1">type_2</option>
+                    <option value="2">type_3</option>
+                </select>
+
+                    <label>airplane_Color_Constant:</label>
+                <select name="airplane_Color_Constant" onchange="updateDefaultAirplaneColor(this, ${i})">
+                    <option value="0">constant</option>
+                    <option value="1">variable</option>
+                </select>
+
+                <label>default_Airplane_Color:</label>
+                <select name="default_Airplane_Color" id="default_Airplane_Color_${i}">
+                    <option value="0">color_1</option>
+                    <option value="1">color_2</option>
+                    <option value="2">color_3</option>
+                </select>
+
+                    <label>distracor_Color_Constant:</label>
+                <select name="distracor_Color_Constant" onchange="updateDefaultDistractorColor(this, ${i})">
+                    <option value="0">constant</option>
+                    <option value="1">variable</option>
+                </select>
+
+                <label>default_Distractor_Color:</label>
+                <select name="default_Distractor_Color" id="default_Distractor_Color_${i}">
+                    <option value="0">color_1</option>
+                    <option value="1">color_2</option>
+                    <option value="2">color_3</option>
+                </select>
+              </fieldset>
+
+
+
+
+
+
+
+           
+
+          </div>`;
+      }
+
+
+
+
+      
+    }
+
+
+
+    function updateDefaultDistractorColor(selectElement, index) {
+    var defaultDistractorColorSelect = document.getElementById(`default_Distractor_Color_${index}`);
+    if (selectElement.value === "1") { // If variable
+        defaultDistractorColorSelect.value = "0"; // Set to gray
+        defaultDistractorColorSelect.disabled = true; // Disable selection
+    } else {
+        defaultDistractorColorSelect.disabled = false; // Enable selection
+    }
+}
+
+function updateDefaultAirplaneColor(selectElement, index) {
+    var defaultAirplaneColorSelect = document.getElementById(`default_Airplane_Color_${index}`);
+    if (selectElement.value === "1") { // If variable
+        defaultAirplaneColorSelect.value = "0"; // Set to gray
+        defaultAirplaneColorSelect.disabled = true; // Disable selection
+    } else {
+        defaultAirplaneColorSelect.disabled = false; // Enable selection
+    }
+}
+
+function updateDefaultDistractorShape(selectElement, index) {
+    var defaultDistractorShapeSelect = document.getElementById(`default_Distractor_Shape_${index}`);
+    if (selectElement.value === "1") { // If variable
+        defaultDistractorShapeSelect.value = "0"; // Set to type_3
+        defaultDistractorShapeSelect.disabled = true; // Disable selection
+    } else {
+        defaultDistractorShapeSelect.disabled = false; // Enable selection
+    }
+}
+
+function updateDefaultAirplaneShape(selectElement, index) {
+    var defaultAirplaneShapeSelect = document.getElementById(`default_Airplane_Shape_${index}`);
+    if (selectElement.value === "1") { // If variable
+        defaultAirplaneShapeSelect.value = "0"; // Set to type_3
+        defaultAirplaneShapeSelect.disabled = true; // Disable selection
+    } else {
+        defaultAirplaneShapeSelect.disabled = false; // Enable selection
+    }
+}
+
+function updateDefaultAirplaneLocation(selectElement, index) {
+    var defaultAirplaneLocationSelect = document.getElementById(`defualt_Airplane_Location_${index}`);
+    if (selectElement.value === "1") { // If variable
+        defaultAirplaneLocationSelect.value = "0"; // Set to right
+        defaultAirplaneLocationSelect.disabled = true; // Disable selection
+    } else {
+        defaultAirplaneLocationSelect.disabled = false; // Enable selection
+    }
+}
+
+
+
+function copyValues(index) {
+    var blocks = document.getElementsByClassName("block");
+    if (index > 0) {
+        var prevBlock = blocks[index - 1];
+        var currentBlock = blocks[index];
+
+        // Iterate over input elements and copy values
+        var inputsPrev = prevBlock.querySelectorAll("input, select");
+        var inputsCurr = currentBlock.querySelectorAll("input, select");
+
+        for (var i = 0; i < inputsPrev.length; i++) {
+            // Exclude the specific fields from copying values
+            if (inputsPrev[i].name !== "airplane_location_Constant" &&
+                inputsPrev[i].name !== "airplane_shape_Constant" &&
+                inputsPrev[i].name !== "airplane_Color_Constant" &&
+                inputsPrev[i].name !== "defualt_Airplane_Location") {
+                inputsCurr[i].value = inputsPrev[i].value;
+            }
+        }
+
+        // Additionally, copy values for the special fields
+        var airplaneLocationConstantPrev = prevBlock.querySelector('select[name="airplane_location_Constant"]');
+        var airplaneLocationConstantCurr = currentBlock.querySelector('select[name="airplane_location_Constant"]');
+        airplaneLocationConstantCurr.selectedIndex = airplaneLocationConstantPrev.selectedIndex;
+        if (airplaneLocationConstantCurr.selectedIndex === 1) {
+            currentBlock.querySelector('select[name="defualt_Airplane_Location"]').disabled = true;
+        }
+
+                  var specialFieldPrev = prevBlock.querySelector('select[name="airplane_shape_Constant"]');
+          var specialFieldCurr = currentBlock.querySelector('select[name="airplane_shape_Constant"]');
+          specialFieldCurr.selectedIndex = specialFieldPrev.selectedIndex;
+          if (specialFieldCurr.selectedIndex === 1) {
+              currentBlock.querySelector('select[name="default_Airplane_Shape"]').disabled = true;
+          } else {
+              currentBlock.querySelector('select[name="default_Airplane_Shape"]').disabled = false;
+          }
+
+
+          var specialFieldPrev = prevBlock.querySelector('select[name="distractor_Shape_Constant"]');
+var specialFieldCurr = currentBlock.querySelector('select[name="distractor_Shape_Constant"]');
+specialFieldCurr.selectedIndex = specialFieldPrev.selectedIndex;
+if (specialFieldCurr.selectedIndex === 1) {
+    currentBlock.querySelector('select[name="default_Distractor_Shape"]').disabled = true;
+} else {
+    currentBlock.querySelector('select[name="default_Distractor_Shape"]').disabled = false;
+}
+
+
+
+var specialFieldPrev = prevBlock.querySelector('select[name="airplane_Color_Constant"]');
+var specialFieldCurr = currentBlock.querySelector('select[name="airplane_Color_Constant"]');
+specialFieldCurr.selectedIndex = specialFieldPrev.selectedIndex;
+if (specialFieldCurr.selectedIndex === 1) {
+    currentBlock.querySelector('select[name="default_Airplane_Color"]').disabled = true;
+} else {
+    currentBlock.querySelector('select[name="default_Airplane_Color"]').disabled = false;
+}
+
+
+var specialFieldPrev = prevBlock.querySelector('select[name="distracor_Color_Constant"]');
+var specialFieldCurr = currentBlock.querySelector('select[name="distracor_Color_Constant"]');
+specialFieldCurr.selectedIndex = specialFieldPrev.selectedIndex;
+if (specialFieldCurr.selectedIndex === 1) {
+    currentBlock.querySelector('select[name="default_Distractor_Color"]').disabled = true;
+} else {
+    currentBlock.querySelector('select[name="default_Distractor_Color"]').disabled = false;
+}
+}
+}
+
+function setDefaultValues(index) {
+    var currentBlock = document.getElementsByClassName("block")[index];
+    var inputsCurr = currentBlock.querySelectorAll("input, select");
+
+    // Set default values for each input/select element
+    inputsCurr.forEach(function(input) {
+        switch (input.name) {
+            case "go":
+                input.value = 2;
+                break;
+            case "nogo":
+                input.value = 2;
+                break;
+            case "fixation_time_x":
+                input.value = 1000;
+                break;
+            case "fixation_time_y":
+                input.value = 1000;
+                break;
+
+
+            case "show_time_duration_go_x":
+                input.value = 3000;
+                break;
+
+            case "show_time_duration_go_y":
+                input.value = 3500;
+                break;    
+
+            case "show_time_duration_no_go_x":
+                input.value = 3000;
+                break; 
+
+            case "show_time_duration_no_go_y":
+            input.value = 3500;
+            break;
+
+            case "stop_signal_delay_x":
+            input.value = 1000;
+            break;
+
+            case "stop_signal_delay_y":
+            input.value = 2500;
+            break;
+
+            case "beep_duration_x":
+            input.value = 100;
+            break;
+
+            case "beep_duration_y":
+            input.value = 500;
+            break;
+
+
+
+            case "default_Airplane_Direction":
+                input.selectedIndex = 0; // Set default value to the first option for select element
+                break;
+
+
+            case "distractor_Direction_Is_In_Aiplane_Direction":
+            input.selectedIndex = 1; // Set default value to the first option for select element
+            break;    
+
+            case "airplane_location_Constant":
+                input.selectedIndex = 1; // Select the option for "variable"
+                input.dispatchEvent(new Event('change')); // Trigger change event to update dependent fields
+                break;
+            case "defualt_Airplane_Location":
+                input.disabled = true; // Disable the select element
+                break;
+
+
+
+                case "airplane_location_Constant":
+                input.selectedIndex = 1; // Select the option for "variable"
+                input.dispatchEvent(new Event('change')); // Trigger change event to update dependent fields
+                break;
+            case "defualt_Airplane_Location":
+                input.disabled = true; // Disable the select element
+                break;
+
+
+                case "airplane_shape_Constant":
+                input.selectedIndex = 1; // Select the option for "variable"
+                input.dispatchEvent(new Event('change')); // Trigger change event to update dependent fields
+                break;
+            case "default_Airplane_Shape":
+                input.disabled = true; // Disable the select element
+                break;
+
+
+                case "distractor_Shape_Constant":
+                input.selectedIndex = 1; // Select the option for "variable"
+                input.dispatchEvent(new Event('change')); // Trigger change event to update dependent fields
+                break;
+            case "default_Distractor_Shape":
+                input.disabled = true; // Disable the select element
+                break;
+
+
+                case "airplane_Color_Constant":
+                input.selectedIndex = 1; // Select the option for "variable"
+                input.dispatchEvent(new Event('change')); // Trigger change event to update dependent fields
+                break;
+            case "default_Airplane_Color":
+                input.disabled = true; // Disable the select element
+                break;
+
+
+                case "distracor_Color_Constant":
+                input.selectedIndex = 1; // Select the option for "variable"
+                input.dispatchEvent(new Event('change')); // Trigger change event to update dependent fields
+                break;
+            case "default_Distractor_Color":
+                input.disabled = true; // Disable the select element
+                break;
+
+               
+
+            // Add cases for other parameters if needed
+            default:
+                break;
+        }
+    });
+}
+
+
+// Function to get the inputs below the current input
+
+
+// Function to disable inputs
+
+
+function validateData() {
+    var blocks = document.getElementsByClassName("block");
+
+// Check all blocks
+for(var i = 0; i < blocks.length; i++) {
+
+  // Get all inputs
+  var inputs = blocks[i].getElementsByTagName("input");
+  
+  // Check each input
+  for(var j = 0; j < inputs.length; j++) {
+  
+    if(!inputs[j].value) {
+      alert("Empty field found in Block " + (i+1));
+      return false; 
+    }
+  
+  }
+
+
+  // Check if the sum of stop_signal_delay_duration_y and beep_duration_y exceeds show_time_duration_no_go_y
+  var stopSignalDelayDuration = parseFloat(blocks[i].querySelector("[name='stop_signal_delay_y']").value);
+    var beepDuration = parseFloat(blocks[i].querySelector("[name='beep_duration_y']").value);
+    var showTimeDurationNoGo = parseFloat(blocks[i].querySelector("[name='show_time_duration_no_go_x']").value);
+
+    if (stopSignalDelayDuration + beepDuration > showTimeDurationNoGo) {
+      alert(`Error in Block ${i + 1}: The sum of stop_signal_delay_maximum (${stopSignalDelayDuration}) and beep_duration_maximun (${beepDuration}) exceeds show_time_duration_no_go_minimum (${showTimeDurationNoGo}).`);
+      return false;
+    }
+
+
+    var fields = ['fixation_time', 'show_time_duration_go', 'show_time_duration_no_go', 'stop_signal_delay', 'beep_duration'];
+    for (var k = 0; k < fields.length; k++) {
+      var fieldName = fields[k];
+      var x = parseFloat(blocks[i].querySelector(`[name='${fieldName}_x']`).value);
+      var y = parseFloat(blocks[i].querySelector(`[name='${fieldName}_y']`).value);
+
+      if (y < x) {
+        alert(`Error in Block ${i + 1}: The value of ${fieldName}_y (${y}) should be greater or equal than ${fieldName}_x (${x}).`);
+        return false;
+      }
+    }
+
+}
+  
+  
+  
+  
+
+
+
+  return true;
+}
+
+
+async function saveData() {
+    if (!validateData()) {
+        return;
+    }
+
+    // Get data  
+    var data = [];
+    var blocks = document.getElementsByClassName("block");
+    for (var i = 0; i < blocks.length; i++) {
+        var block = {};
+        var elements = blocks[i].querySelectorAll("input, select");
+        elements.forEach(el => {
+            if (el.name.includes("_x")) {
+                var baseName = el.name.split("_x")[0];
+                if (!block[baseName]) {
+                    block[baseName] = {};
+                }
+                block[baseName].x = el.value;
+            } else if (el.name.includes("_y")) {
+                var baseName = el.name.split("_y")[0];
+                if (!block[baseName]) {
+                    block[baseName] = {};
+                }
+                block[baseName].y = el.value;
+            } else {
+                block[el.name] = el.value;
+            }
+        });
+        data.push(block);
+    }
+
+    // Convert to JSON
+    var json = JSON.stringify(data);
+
+    try {
+        // Prompt user to select directory
+        const directoryHandle = await window.showDirectoryPicker();
+
+        // Prompt user to enter file name
+        var fileName = prompt("Please enter the file name (including extension):", "data.json");
+        if (!fileName) return; // If user cancels prompt, exit function
+
+        // Create a file in the selected directory
+        const fileHandle = await directoryHandle.getFileHandle(fileName, { create: true });
+        const writable = await fileHandle.createWritable();
+
+        // Write JSON data to the file
+        await writable.write(json);
+
+        // Close the file and save changes
+        await writable.close();
+    } catch (error) {
+        console.error('Error saving data:', error);
+    }
+}
+
+ </script>
+
+</head>
+
+
+
+
+
+
+<body>
+
+  <label>Number of blocks:</label>
+  <input type="number" id="numBlocks">
+  <button type="button" onclick="addBlocks()">Generate Blocks</button>
+
+  <div id="blocks"></div>
+
+  <button type="button" onclick="saveData()">Save to JSON</button>
+
+</body>
+
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
