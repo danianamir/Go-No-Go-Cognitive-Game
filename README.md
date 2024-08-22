@@ -20,6 +20,7 @@ The game challenges players to focus and respond accurately while ignoring irrel
 
 The game is highly customizable to fit different experimental needs and preferences:
 
+
 - **Number of Go Trials per Block**: Define how many Go trials are included in each block of the game.
 - **Number of No-Go Trials per Block**: Set the number of No-Go trials that will be present in each block.
 - **Fixation Time**: Adjust the short time during which a fixation point is displayed before showing the airplane.
@@ -32,4 +33,4 @@ The game is highly customizable to fit different experimental needs and preferen
 ## how to use
 You can download the game from the `gonogo` folder. Use the `input` file to set the game parameters, then provide the address of the saved file to start the game. After completion, output information will be saved in the `output` folder.
 
-
+![Description of the image](pic)
