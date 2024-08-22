@@ -1,0 +1,47 @@
+ // instatiate the arrow gameobject
+        ShowTime.ArrowType variable = sh.arrow_type;
+        GameObject arrow = new GameObject();
+        arrow.tag = "show_time";
+        arrow.AddComponent<SpriteRenderer>();
+        SpriteRenderer arrow_spr = arrow.GetComponent<SpriteRenderer>();
+
+        switch (variable)
+        {
+            case ShowTime.ArrowType.alldirection:
+                arrow_spr.sprite = arrow_sprite[0];
+                break;
+            case ShowTime.ArrowType.not_left:
+                arrow_spr.sprite = arrow_sprite[1];
+                break;
+            case ShowTime.ArrowType.not_right:
+                arrow_spr.sprite = arrow_sprite[2];
+                break;
+            case ShowTime.ArrowType.not_up:
+                arrow_spr.sprite = arrow_sprite[3];
+                break;
+            case ShowTime.ArrowType.not_down:
+                arrow_spr.sprite = arrow_sprite[4];
+                break;
+            case ShowTime.ArrowType.left_right:
+                arrow_spr.sprite = arrow_sprite[5];
+                break;
+            case ShowTime.ArrowType.up_down:
+                arrow_spr.sprite = arrow_sprite[6];
+                break;
+            case ShowTime.ArrowType.left_up:
+                arrow_spr.sprite = arrow_sprite[7];
+                break;
+            case ShowTime.ArrowType.left_down:
+                arrow_spr.sprite = arrow_sprite[8];
+                break;
+            case ShowTime.ArrowType.right_down:
+                arrow_spr.sprite = arrow_sprite[9];
+                break;
+            case ShowTime.ArrowType.right_up:
+                arrow_spr.sprite = arrow_sprite[10];
+                break;
+            default:
+                break;
+        }
+
+        arrow.transform.position = new Vector3(5, 0, 0);
